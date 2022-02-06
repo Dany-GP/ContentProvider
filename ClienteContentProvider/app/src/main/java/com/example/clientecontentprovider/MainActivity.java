@@ -9,10 +9,12 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.provider.UserDictionary;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    EditText txtFirstname,txtLastName;
 
     private void consultarContentProvider(){
         Cursor cursor = getContentResolver().query(
@@ -25,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
             while (cursor.moveToNext()) {
                 Log.d("CPCliente",
-                        cursor.getInt(0) + " - " + cursor.getString(1)
+                        cursor.getInt(0) + " - " + cursor.getString(1) + cursor.getString(2)
                 );
             }
         }else{
@@ -41,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        txtFirstname = findViewById(R.id.txtUserFirstNameDelete);
+        txtLastName = findViewById(R.id.txtUserLastNameDelete);
 
         Cursor c = getContentResolver().query(UserDictionary.Words.CONTENT_URI,
                 new String[] {UserDictionary.Words.WORD,
@@ -95,6 +99,30 @@ public class MainActivity extends AppCompatActivity {
                             elemtosAfectados, Toast.LENGTH_SHORT).show();
 
 
+                }
+        );
+
+        findViewById(R.id.btnConsultUserByName).setOnClickListener(
+                view -> {
+                    consultarContentProvider();
+                }
+        );
+
+        findViewById(R.id.btnDeleteUserByName).setOnClickListener(
+                view -> {
+                    ContentValues cv = new ContentValues();
+                    cv.put(UsuarioContrato.COLUMN_FIRSTNAME, txtFirstname.getText().toString());
+                    cv.put(UsuarioContrato.COLUMN_LASTNAME, txtLastName.getText().toString());
+
+                    int elemAf = getContentResolver().
+                            delete(
+                                    Uri.withAppendedPath(UsuarioContrato.CONTENT_URI, "15"),
+                                    null, new String[]{txtFirstname.getText().toString(),
+                                            txtLastName.getText().toString()}
+                            );
+                    Log.d("CPCliente", "Elementos afectados: " +elemAf );
+                    Toast.makeText(this, "Usuario update: \n"+
+                            elemAf, Toast.LENGTH_SHORT).show();
                 }
         );
 
