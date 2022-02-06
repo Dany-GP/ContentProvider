@@ -36,7 +36,5 @@ public interface UserDao {
     @Delete
     int deleteUser(User user);
 
-    @Delete()
-    void delete(String first, String last);
 
 }

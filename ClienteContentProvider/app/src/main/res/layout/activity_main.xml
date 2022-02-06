@@ -8,15 +8,6 @@
     android:orientation="vertical"
     >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/btnConsultar"
         android:layout_width="match_parent"
@@ -38,6 +29,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Update Contnt Provi" />
+
+    <EditText
+        android:id="@+id/txtUserFirstNameDelete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="type user firstname"
+        />
+
+    <EditText
+        android:id="@+id/txtUserLastNameDelete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="type user lastname"
+        />
+
+    <Button
+        android:id="@+id/btnConsultUserByName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Search user by name" />
+
+    <Button
+        android:id="@+id/btnDeleteUserByName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Delete user by name" />
 
 
 

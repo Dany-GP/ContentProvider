@@ -88,12 +88,12 @@ public class MiContentProvider extends ContentProvider {
                     cursor =   listUserToCursorUser( dao.getAll());
                 break;
             case 2:
-                    //Falta obtener el nombre del usuario
-                    cursor = UserToCursorUser(dao.findByName("",""));
+                    // Busca name y lastname de las columnas que se especifican
+                    cursor = UserToCursorUser(dao.findByName(strings[0],strings[1]));
                 break;
             case 3:
-                    //Falta obtener el nombre del usuario
-                    cursor = UserToCursorUser(dao.findByName("",""));
+                    // Busca name y lastname de las columnas que se especifican
+                    cursor = UserToCursorUser(dao.findByName(strings[0],strings[1]));
                 break;
 
         }
@@ -150,23 +150,32 @@ public class MiContentProvider extends ContentProvider {
                 AppDatabase.getDatabaseInstance(getContext());
         UserDao dao = db.userDao();
         int deletedValue = -1;
+        User user;
         switch (sURIMatcher.match(uri)){
             case 1:
-                    //No hay función aún para eliminar todos los usuarios
-                break;
-            case 2:
-                    //Eliminar por nombre y apellido no implementado aún
-                    dao.delete("","");
-                    deletedValue=1;
-                break;
-            case 3:
-                    User user = new User();
+                    user = new User();
                     user.uid=0;
-                    user.firstName="";
-                    user.lastName="";
+                    user.firstName=strings[0];
+                    user.lastName=strings[1];
                     dao.delete(user);
                     deletedValue=1;
-                break;
+                    break;
+            case 2:
+                    user = new User();
+                    user.uid=0;
+                    user.firstName=strings[0];
+                    user.lastName=strings[1];
+                    dao.delete(user);
+                    deletedValue=1;
+                    break;
+            case 3:
+                    user = new User();
+                    user.uid=0;
+                    user.firstName=strings[0];
+                    user.lastName=strings[1];
+                    dao.delete(user);
+                    deletedValue=1;
+                    break;
         }
 
         return deletedValue;
