@@ -33,8 +33,5 @@ public interface UserDao {
     @Update
     int updateUser(User user);
 
-    @Delete
-    int deleteUser(User user);
-
 
 }

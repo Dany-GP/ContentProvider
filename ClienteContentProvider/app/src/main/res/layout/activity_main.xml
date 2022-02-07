@@ -31,6 +31,13 @@
         android:text="Update Contnt Provi" />
 
     <EditText
+        android:id="@+id/txtUserId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="id"
+        />
+
+    <EditText
         android:id="@+id/txtUserFirstNameDelete"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

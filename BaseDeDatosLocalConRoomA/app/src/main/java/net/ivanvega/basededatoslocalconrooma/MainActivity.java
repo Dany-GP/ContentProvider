@@ -16,8 +16,8 @@ import net.ivanvega.basededatoslocalconrooma.data.UserDao;
 
 public class MainActivity extends AppCompatActivity {
 
-    ;
-Button btnIn ;
+
+    Button btnIn, btnDelete;
 
 
 
@@ -27,6 +27,7 @@ Button btnIn ;
         setContentView(R.layout.activity_main);
 
         btnIn = findViewById(R.id.btnInsert);
+        btnDelete = findViewById(R.id.btnDelete);
 
        btnIn.setOnClickListener(view -> {
 
@@ -53,6 +54,31 @@ Button btnIn ;
                  */
                 Log.d("DBUsuario", "Elemento insertado");
             });
+       });
+
+       btnDelete.setOnClickListener(view -> {
+           AppDatabase db = AppDatabase.getDatabaseInstance(getApplication());
+           UserDao dao = db.userDao();
+           if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+
+               AppDatabase.databaseWriteExecutor.execute(() -> {
+                   User user = new User();
+                   //hardcoded
+                   user.uid=1;
+                   user.firstName="Juan";
+                   user.lastName="Peres";
+                   dao.delete(user);
+                   Log.d("DBUsuario", "Elemento eliminado");
+               });
+
+
+           }else{
+               AppDatabase.databaseWriteExecutor.execute(() -> {
+                   for ( User user : dao.getAll()){
+                       Log.d("DBUsuario", user.firstName+  " "+  user.lastName);
+                   }
+               });
+           }
        });
 
        findViewById(R.id.btnQuery).setOnClickListener(view -> {
