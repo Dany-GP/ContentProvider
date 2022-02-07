@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText txtFirstname,txtLastName;
+    EditText txtFirstname,txtLastName, userid;
 
     private void consultarContentProvider(){
         Cursor cursor = getContentResolver().query(
@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         txtFirstname = findViewById(R.id.txtUserFirstNameDelete);
         txtLastName = findViewById(R.id.txtUserLastNameDelete);
+        userid = findViewById(R.id.txtUserId);
 
         Cursor c = getContentResolver().query(UserDictionary.Words.CONTENT_URI,
                 new String[] {UserDictionary.Words.WORD,
@@ -104,7 +105,24 @@ public class MainActivity extends AppCompatActivity {
 
         findViewById(R.id.btnConsultUserByName).setOnClickListener(
                 view -> {
-                    consultarContentProvider();
+                    Cursor cursor = getContentResolver().query(
+                            UsuarioContrato.CONTENT_URI,
+                            UsuarioContrato.COLUMNS_NAME,
+                            null,new String[]{userid.getText().toString()},null
+                    );
+
+                    if(cursor!=null) {
+
+                        while (cursor.moveToNext()) {
+                            Log.d("CPCliente",
+                                    cursor.getInt(0) + " - " + cursor.getString(1) + cursor.getString(2)
+                            );
+                        }
+                    }else{
+                        Log.d("USUARIOCONTENTPROVIDER",
+                                "NO DEVUELVE"
+                        );
+                    }
                 }
         );
 
@@ -117,11 +135,14 @@ public class MainActivity extends AppCompatActivity {
                     int elemAf = getContentResolver().
                             delete(
                                     Uri.withAppendedPath(UsuarioContrato.CONTENT_URI, "15"),
-                                    null, new String[]{txtFirstname.getText().toString(),
-                                            txtLastName.getText().toString()}
+                                    null, new String[]{
+                                            userid.getText().toString(),
+                                            txtFirstname.getText().toString(),
+                                            txtLastName.getText().toString()
+                                    }
                             );
                     Log.d("CPCliente", "Elementos afectados: " +elemAf );
-                    Toast.makeText(this, "Usuario update: \n"+
+                    Toast.makeText(this, "Usuario delete: \n"+
                             elemAf, Toast.LENGTH_SHORT).show();
                 }
         );

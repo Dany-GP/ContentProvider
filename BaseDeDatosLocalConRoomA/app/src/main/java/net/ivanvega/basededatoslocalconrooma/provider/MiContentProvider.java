@@ -88,12 +88,16 @@ public class MiContentProvider extends ContentProvider {
                     cursor =   listUserToCursorUser( dao.getAll());
                 break;
             case 2:
-                    // Busca name y lastname de las columnas que se especifican
+                    // Busca pot id
                     cursor = UserToCursorUser(dao.findByName(strings[0],strings[1]));
                 break;
             case 3:
-                    // Busca name y lastname de las columnas que se especifican
-                    cursor = UserToCursorUser(dao.findByName(strings[0],strings[1]));
+                    // Busca por name y lastname
+                    cursor = listUserToCursorUser(
+                            dao.loadAllByIds(
+                                    new int[]{
+                                            Integer.parseInt(strings[0])
+                                    }));
                 break;
 
         }
@@ -153,26 +157,20 @@ public class MiContentProvider extends ContentProvider {
         User user;
         switch (sURIMatcher.match(uri)){
             case 1:
-                    user = new User();
-                    user.uid=0;
-                    user.firstName=strings[0];
-                    user.lastName=strings[1];
-                    dao.delete(user);
-                    deletedValue=1;
                     break;
             case 2:
                     user = new User();
-                    user.uid=0;
-                    user.firstName=strings[0];
-                    user.lastName=strings[1];
+                    user.uid=Integer.parseInt(strings[0]);
+                    user.firstName=strings[1];
+                    user.lastName=strings[2];
                     dao.delete(user);
                     deletedValue=1;
                     break;
             case 3:
                     user = new User();
-                    user.uid=0;
-                    user.firstName=strings[0];
-                    user.lastName=strings[1];
+                    user.uid=Integer.parseInt(strings[0]);
+                    user.firstName=strings[1];
+                    user.lastName=strings[2];
                     dao.delete(user);
                     deletedValue=1;
                     break;
