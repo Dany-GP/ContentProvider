@@ -106,16 +106,22 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btnConsultUserByName).setOnClickListener(
                 view -> {
                     Cursor cursor = getContentResolver().query(
-                            UsuarioContrato.CONTENT_URI,
+                            Uri.withAppendedPath(UsuarioContrato.CONTENT_URI, "18"),
                             UsuarioContrato.COLUMNS_NAME,
-                            null,new String[]{userid.getText().toString()},null
+                            null,
+                            new String[]{
+                                    userid.getText().toString(),
+                                    txtFirstname.getText().toString(),
+                                    txtLastName.getText().toString()
+                            },null
                     );
 
                     if(cursor!=null) {
 
                         while (cursor.moveToNext()) {
                             Log.d("CPCliente",
-                                    cursor.getInt(0) + " - " + cursor.getString(1) + cursor.getString(2)
+                                    "\n"+ cursor.getInt(0) + " - " +
+                                            cursor.getString(1) + cursor.getString(2)
                             );
                         }
                     }else{

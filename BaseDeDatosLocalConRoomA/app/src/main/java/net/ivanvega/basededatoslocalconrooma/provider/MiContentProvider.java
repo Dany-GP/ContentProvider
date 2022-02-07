@@ -88,15 +88,19 @@ public class MiContentProvider extends ContentProvider {
                     cursor =   listUserToCursorUser( dao.getAll());
                 break;
             case 2:
-                    // Busca pot id
-                    cursor = UserToCursorUser(dao.findByName(strings[0],strings[1]));
+                    // Busca por firstname y lastname
+                try {
+                    cursor = UserToCursorUser(dao.findByName(strings1[1], strings1[2]));
+                }catch (NullPointerException e){
+
+                }
                 break;
             case 3:
-                    // Busca por name y lastname
+                    // Busca por id
                     cursor = listUserToCursorUser(
                             dao.loadAllByIds(
                                     new int[]{
-                                            Integer.parseInt(strings[0])
+                                            Integer.parseInt(strings1[0])
                                     }));
                 break;
 

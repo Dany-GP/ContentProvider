@@ -32,6 +32,4 @@ public interface UserDao {
 
     @Update
     int updateUser(User user);
-
-
 }
